@@ -27,15 +27,4 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING)
     }
   });
-
-  sequelize.define('Diet_type', {
-    id:{
-      primaryKey: true,
-      type: DataTypes.UUID
-    },
-    name: {
-      type: DataTypes.STRING
-    }
-  });
-
 };
