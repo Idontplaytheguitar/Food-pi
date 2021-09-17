@@ -5,6 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Recipe', {
     id:{
+      primaryKey: true,
       type: DataTypes.UUID,
       allowNull: false
     },
@@ -23,12 +24,13 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN
     },
     steps:{
-      type: DataTypes.ARRAY
+      type: DataTypes.ARRAY(DataTypes.STRING)
     }
   });
 
   sequelize.define('Diet_type', {
     id:{
+      primaryKey: true,
       type: DataTypes.UUID
     },
     name: {
