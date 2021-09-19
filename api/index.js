@@ -27,43 +27,53 @@ conn.sync({ force: true }).then(() => {
 
     var vegetarian =  Diet_type.create({
       name: "Vegetarian",
-    });
+    })
+    .catch(e => console.log(e))
    
     var lactoVegetarian =  Diet_type.create({
       name: "Lacto-Vegetarian",
-    });
+    })
+    .catch(e => console.log(e))
    
     var ketegenic =  Diet_type.create({
       name: "Ketogenic",
-    });
+    })
+    .catch(e => console.log(e))
 
     var ovoVegetarian =  Diet_type.create({
       name: "Ovo-Vegetarian",
-    });
+    })
+    .catch(e => console.log(e))
 
     var vegan =  Diet_type.create({
       name: "Vegan",
-    });
+    })
+    .catch(e => console.log(e))
 
     var pescetarian =  Diet_type.create({
       name: "Pescetarian",
-    });
+    })
+    .catch(e => console.log(e))
 
     var paleo =  Diet_type.create({
       name: "Paleo",
-    });
+    })
+    .catch(e => console.log(e))
 
      var primal =  Diet_type.create({
       name: "Primal",
-    });
+    })
+    .catch(e => console.log(e))
   
     var whole30 =  Diet_type.create({
       name: "Whole30",
-    });
+    })
+    .catch(e => console.log(e))
    
     Promise.all([vegetarian, lactoVegetarian, ketegenic, ovoVegetarian, vegan, pescetarian, paleo, primal, whole30])
       .then(res => {
         console.log("Dietas precargadas :)");
-      });
+      })
+      .catch(e => console.log(e))
   });
 });

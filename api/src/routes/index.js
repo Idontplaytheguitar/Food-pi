@@ -40,13 +40,30 @@ router.get( "/recipes", async function(req, res){
 router.get("/recipes/:idReceta", (req, res) =>{
     const {idReceta} = req.params
     // https://api.spoonacular.com/recipes/{id}/information
-    
+
   /*   fetch(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
     .then(r => res.send(r))
     .catch(e => res.send(e)) */
 })
 
-router.get("/types", (req,res) =>{
-
+router.get("/types", async (req,res) =>{
+    const diets = await Diet_type.findAll()
+    const dietsN = diets.map(e => e.name)
+    console.log(dietsN)
+    res.send(dietsN)
 })
+
+router.post('/recipe', (req,res)=>{
+    const {name,summary,rating,healthy,steps} = req.body;
+    Recipe.create({
+        name: {name},
+        summary:{summary},
+        rating: {rating},
+        healthy:{healthy},
+        steps:{steps}
+    })
+    .then(r => console.log(r,'||||||||||',"Receta creada exitosament!"))
+    .catch(e => console.log(e))
+})
+
 module.exports = router;
