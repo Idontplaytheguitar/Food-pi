@@ -18,11 +18,52 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const { conn, Diet_type } = require('./src/db.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+  server.listen(3002, () => {
+    console.log('%s listening at 3002'); // eslint-disable-line no-console
+
+    var vegetarian =  Diet_type.create({
+      name: "Vegetarian",
+    });
+   
+    var lactoVegetarian =  Diet_type.create({
+      name: "Lacto-Vegetarian",
+    });
+   
+    var ketegenic =  Diet_type.create({
+      name: "Ketogenic",
+    });
+
+    var ovoVegetarian =  Diet_type.create({
+      name: "Ovo-Vegetarian",
+    });
+
+    var vegan =  Diet_type.create({
+      name: "Vegan",
+    });
+
+    var pescetarian =  Diet_type.create({
+      name: "Pescetarian",
+    });
+
+    var paleo =  Diet_type.create({
+      name: "Paleo",
+    });
+
+     var primal =  Diet_type.create({
+      name: "Primal",
+    });
+  
+    var whole30 =  Diet_type.create({
+      name: "Whole30",
+    });
+   
+    Promise.all([vegetarian, lactoVegetarian, ketegenic, ovoVegetarian, vegan, pescetarian, paleo, primal, whole30])
+      .then(res => {
+        console.log("Dietas precargadas :)");
+      });
   });
 });

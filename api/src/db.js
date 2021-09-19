@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DB_USER, DB_PASSWORD, DB_HOST
 } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/food`, {
@@ -36,6 +36,8 @@ const { Recipe, Diet_type } = sequelize.models;
 // Product.hasMany(Reviews);
 Recipe.belongsToMany(Diet_type, {through: `Recipe_Diet_Type`}); // muchos a muchos  
 Diet_type.belongsToMany(Recipe, {through: `Recipe_Diet_Type`})  // muchos a muchos
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
