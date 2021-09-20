@@ -27,6 +27,26 @@ router.get('/random', (req,res)=>{
 // Ejemplo: router.use('/auth', authRouter);
 router.get( "/recipes", async function(req, res){           // (y)
     let {nombre} = req.query
+    if(!nombre){
+        Recipe.findAll()
+        .then(r=>{
+            if(r.length > 0){
+            res.send(r)
+        }
+            else{
+                axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${YOUR_API_KEY}`)
+                .then(r => {console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
+                    res.send(r)
+                })
+                .catch(e => {
+                    console.log('|||||||||| ERROR RECETAS RANDOM ||||||||||',e)
+                    res.status(404).json('idk')})
+            }
+    })
+        .catch(e => {
+            console.log('|||||||| ERROR PROMESA BUSCADORA DE RECETAS |||||||',e)
+            res.sendStatus(404)})
+    }
     if(nombre){
         let resRecipe = await Recipe.findAll({
             where:{
@@ -39,7 +59,7 @@ router.get( "/recipes", async function(req, res){           // (y)
         }
         else{
             await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&apiKey=${YOUR_API_KEY}`)
-            .then(resR => {
+            .then(resR => { 
                 res.send(resR.data.results)
             })
             .catch(e =>{
