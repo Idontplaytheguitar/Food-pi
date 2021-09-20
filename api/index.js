@@ -17,6 +17,7 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const { default: axios } = require('axios');
 const server = require('./src/app.js');
 const { conn, Diet_type } = require('./src/db.js');
 
@@ -25,6 +26,7 @@ conn.sync({ force: true }).then(() => {
   server.listen(3002, () => {
     console.log('%s listening at 3002'); // eslint-disable-line no-console
 
+  
     var vegetarian =  Diet_type.create({
       name: "Vegetarian",
     })

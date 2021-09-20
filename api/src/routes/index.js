@@ -1,24 +1,31 @@
 const { Router } = require('express');
+require('dotenv').config()
 const {Recipe, Diet_type} = require('../db')
+const axios = require('axios');
+const e = require('express');
+const { set } = require('../app');
 const {YOUR_API_KEY} = process.env
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
+//ej:
+//const query = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=${YOUR_API_KEY}`)
+//console.log(query.data)
 
 const router = Router();
 
 /* const v = 'Vegetarian'
 
 router.get('/random', (req,res)=>{
-    fetch('https://api.spoonacular.com/recipes/random?apiKey=e85f86d8e2c74fc395346e39a231edb5')
+    fetch('https://api.spoonacular.com/recipes/random?apiKey=')
     .then(r => res.send(r))
     .catch(e => console.log('333333333333333333',e,'|||||||||||||||'))
 }) */
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.get( "/recipes", async function(req, res){
+router.get( "/recipes", async function(req, res){           // (y)
     let {nombre} = req.query
     if(nombre){
         let resRecipe = await Recipe.findAll({
@@ -26,44 +33,64 @@ router.get( "/recipes", async function(req, res){
                 name: nombre
             }
         })
-        if(resRecipe){
+        if(resRecipe.length > 0){
+            console.log(resRecipe)
             return res.send(resRecipe)
         }
         else{
-         /*    fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}apiKey=${YOUR_API_KEY}`)
-            .then(resR => {if(resR)res.send(resR)})
-            .catch(e => res.send(e)) */
+            await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&apiKey=${YOUR_API_KEY}`)
+            .then(resR => {
+                res.send(resR.data.results)
+            })
+            .catch(e =>{
+                console.log(e)
+                res.send(e)})
         }
     }
 })
 
-router.get("/recipes/:idReceta", (req, res) =>{
+router.get("/recipes/:idReceta", (req, res) =>{         // (y)
     const {idReceta} = req.params
     // https://api.spoonacular.com/recipes/{id}/information
-
-  /*   fetch(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
-    .then(r => res.send(r))
-    .catch(e => res.send(e)) */
+    console.log(idReceta)
+    axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
+    .then(r => {
+        console.log(r.data)
+        res.send(r.data)})
+    .catch(e => res.send(e)) 
 })
 
-router.get("/types", async (req,res) =>{
-    const diets = await Diet_type.findAll()
-    const dietsN = diets.map(e => e.name)
-    console.log(dietsN)
-    res.send(dietsN)
+router.get('/types', async (req,res) => {           // (y)
+    let q = await Diet_type.findAll()
+    let diets = []
+    for(let i of q){
+        diets.push(i.name)
+    }
+    //console.log(diets)
+    res.send(diets)
+   
 })
 
-router.post('/recipe', (req,res)=>{
+/* Recipe.create({
+    name: "hola",
+    summary:'a ver si',
+    rating: 1,
+    healthy: true,
+    steps:[0,2,"funca"]
+}) */
+
+router.post('/recipe', async (req,res)=>{       // (y)
     const {name,summary,rating,healthy,steps} = req.body;
-    Recipe.create({
-        name: {name},
-        summary:{summary},
-        rating: {rating},
-        healthy:{healthy},
-        steps:{steps}
+    console.log(name,summary,rating,healthy,steps)
+    await Recipe.create({
+        name,
+        summary,
+        rating,
+        healthy,
+        steps
     })
-    .then(r => console.log(r,'||||||||||',"Receta creada exitosament!"))
-    .catch(e => console.log(e))
+    .then(r =>res.send('Done!'))
+    .catch(e => res.status(401).json(e))
+    
 })
-
 module.exports = router;
