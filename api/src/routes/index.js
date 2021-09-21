@@ -35,7 +35,10 @@ router.get( "/recipes", async function(req, res){           // (y)
         }
             else{
                 axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${YOUR_API_KEY}`)
-                .then(r => {console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
+                .then(r => {
+                    //console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
+
+                    // acá crearía las recetas si tuviera que hacerlo
                     res.send(r)
                 })
                 .catch(e => {
@@ -54,12 +57,15 @@ router.get( "/recipes", async function(req, res){           // (y)
             }
         })
         if(resRecipe.length > 0){
-            console.log(resRecipe)
+            // console.log('||||||||||||||resRecipe db, no api externa |||||||||||||||',resRecipe)
             return res.send(resRecipe)
         }
         else{
             await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&apiKey=${YOUR_API_KEY}`)
             .then(resR => { 
+
+
+                // acá crearia la receta si tuviera que hacerlo
                 res.send(resR.data.results)
             })
             .catch(e =>{
@@ -72,10 +78,13 @@ router.get( "/recipes", async function(req, res){           // (y)
 router.get("/recipes/:idReceta", (req, res) =>{         // (y)
     const {idReceta} = req.params
     // https://api.spoonacular.com/recipes/{id}/information
-    console.log(idReceta)
+    // console.log(idReceta)
     axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
     .then(r => {
-        console.log(r.data)
+        // console.log(r.data)
+        // acá puedo crear la receta si quiero
+
+        
         res.send(r.data)})
     .catch(e => res.send(e)) 
 })
