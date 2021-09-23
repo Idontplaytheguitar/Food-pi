@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     summary: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: "",
       allowNull: false
     },
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN
     },
     steps:{
-      type: DataTypes.ARRAY(DataTypes.STRING)
+      type: DataTypes.ARRAY(DataTypes.JSON)
     }
   });
 };

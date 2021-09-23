@@ -3,7 +3,6 @@ require('dotenv').config()
 const {Recipe, Diet_type} = require('../db')
 const axios = require('axios');
 const e = require('express');
-const { set } = require('../app');
 const {YOUR_API_KEY} = process.env
 
 // Importar todos los routers;
@@ -17,14 +16,21 @@ const router = Router();
 
 /* const v = 'Vegetarian'
 
+
 router.get('/random', (req,res)=>{
     fetch('https://api.spoonacular.com/recipes/random?apiKey=')
     .then(r => res.send(r))
     .catch(e => console.log('333333333333333333',e,'|||||||||||||||'))
 }) */
 
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+
+
+
+
+
 router.get( "/recipes", async function(req, res){           // (y)
     let {nombre} = req.query
     if(!nombre){
@@ -34,12 +40,36 @@ router.get( "/recipes", async function(req, res){           // (y)
             res.send(r)
         }
             else{
-                axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${YOUR_API_KEY}`)
-                .then(r => {
+                axios.get(`https://api.spoonacular.com/recipes/random?number=100&apiKey=${YOUR_API_KEY}`)
+                .then(async r => {
                     //console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
-
                     // acá crearía las recetas si tuviera que hacerlo
-                    res.send(r)
+
+                    for(let i of r.data.recipes){
+                        // console.log(i.analyzedInstructions)
+                        let st = []
+                       i.analyzedInstructions.forEach(e => {
+                           // console.log(e)
+                           st.push(e)
+                        }
+                        )
+                      // console.log(st)
+                        await Recipe.create({
+                            name: i.title,
+                            summary: i.summary,
+                            rating: i.spoonacularScore,
+                            healthy: i.veryHealthy,
+                            steps: st
+                           
+                        })
+                    }
+
+                    await Recipe.findAll()
+                    .then(recipes => 
+                        
+                        res.send(recipes)
+                        )
+
                 })
                 .catch(e => {
                     console.log('|||||||||| ERROR RECETAS RANDOM ||||||||||',e)
@@ -61,12 +91,36 @@ router.get( "/recipes", async function(req, res){           // (y)
             return res.send(resRecipe)
         }
         else{
-            await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&apiKey=${YOUR_API_KEY}`)
-            .then(resR => { 
-
-
+            await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
+            .then(async resR => { 
                 // acá crearia la receta si tuviera que hacerlo
-                res.send(resR.data.results)
+                for(let i of resR.data.results){
+                    // console.log(i.analyzedInstructions)
+                    let st = []
+                   i.analyzedInstructions.forEach(e => {
+                       // console.log(e)
+                       st.push(e)
+                    }
+                    )
+                  // console.log(st)
+                    await Recipe.create({
+                        name: i.title,
+                        summary: i.summary,
+                        rating: i.spoonacularScore,
+                        healthy: i.veryHealthy,
+                        steps: st
+                       
+                    })
+                    var recipesFound = []
+                    let recipeFound = await Recipe.findOne({
+                        where:{
+                            name: i.title
+                        }
+                    })
+                    recipesFound.push(recipeFound)
+
+                }
+                res.send(recipesFound)
             })
             .catch(e =>{
                 console.log(e)
@@ -75,19 +129,52 @@ router.get( "/recipes", async function(req, res){           // (y)
     }
 })
 
+
+
+
+
 router.get("/recipes/:idReceta", (req, res) =>{         // (y)
     const {idReceta} = req.params
     // https://api.spoonacular.com/recipes/{id}/information
     // console.log(idReceta)
     axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
-    .then(r => {
+    .then(async r => {
         // console.log(r.data)
         // acá puedo crear la receta si quiero
+        let st = []
+        r.data.analyzedInstructions.forEach(e => {
+            // console.log(e)
+            st.push(e)
+         }
+         )
+       // console.log(st)
+       let short = r.data;
 
-        
-        res.send(r.data)})
+         await Recipe.create({
+             name: short.title,
+             summary: short.summary,
+             rating: short.spoonacularScore,
+             healthy: short.veryHealthy,
+             steps: st
+            
+         })
+        let info = {
+            name: short.title,
+            summary: short.summary,
+            rating: short.spoonacularScore,
+            dishTypes: short.dishTypes,
+            diets: short.diets,
+            healthScore: short.healthScore,
+            Image: short.image,
+            steps: st
+        }
+        res.send(info)})
     .catch(e => res.send(e)) 
 })
+
+
+
+
 
 router.get('/types', async (req,res) => {           // (y)
     let q = await Diet_type.findAll()
@@ -99,6 +186,9 @@ router.get('/types', async (req,res) => {           // (y)
     res.send(diets)
    
 })
+
+
+
 
 /* Recipe.create({
     name: "hola",

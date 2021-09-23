@@ -24,6 +24,9 @@ function App() {
         <Home></Home>
       </Route>
 
+      <Route exact path='/home/:recipe'>
+        
+      </Route>
       
     </div>
   );
