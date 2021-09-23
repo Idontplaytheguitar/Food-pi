@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import CardHome from './CardHome';
 
 const Home= () => {
 
@@ -12,7 +13,7 @@ const Home= () => {
   useEffect(()=> {
     const fetchCards = async ()=> {
       setLoading(true);
-      await axios.get('localhost:3002/recipes')
+      await axios.get('http://localhost:3001/recipes')
       .then(r => {console.log(r)
       setCards(r)
       setLoading(false)
@@ -28,7 +29,7 @@ console.log(cards)
 
   return (
     <div>
-        <h1>Henry Food</h1>
+        <CardHome loading={loading} Cards={cards}></CardHome>
     </div>
   )
 };

@@ -34,98 +34,115 @@ router.get('/random', (req,res)=>{
 router.get( "/recipes", async function(req, res){           // (y)
     let {nombre} = req.query
     if(!nombre){
+        let found = []
         Recipe.findAll()
         .then(r=>{
             if(r.length > 0){
-            res.send(r)
+            found.push(r)
         }
-            else{
-                axios.get(`https://api.spoonacular.com/recipes/random?number=100&apiKey=${YOUR_API_KEY}`)
-                .then(async r => {
-                    //console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
-                    // acá crearía las recetas si tuviera que hacerlo
+    
+        axios.get(`https://api.spoonacular.com/recipes/random?number=100&apiKey=${YOUR_API_KEY}`)
+        .then(async r => {
+            //console.log('||||||||||| RECETAS RANDOM |||||||||||||',r)
+            // acá crearía las recetas si tuviera que hacerlo
 
-                    for(let i of r.data.recipes){
-                        // console.log(i.analyzedInstructions)
-                        let st = []
-                       i.analyzedInstructions.forEach(e => {
-                           // console.log(e)
-                           st.push(e)
-                        }
-                        )
-                      // console.log(st)
-                        await Recipe.create({
-                            name: i.title,
-                            summary: i.summary,
-                            rating: i.spoonacularScore,
-                            healthy: i.veryHealthy,
-                            steps: st
-                           
-                        })
-                    }
+            for(let i of r.data.recipes){
+                // console.log(i.analyzedInstructions)
 
-                    await Recipe.findAll()
+                /*  let st = []
+                i.analyzedInstructions.forEach(e => {
+                    // console.log(e)
+                    st.push(e)
+                }
+                )
+                // console.log(st)
+                await Recipe.create({
+                    name: i.title,
+                    summary: i.summary,
+                    rating: i.spoonacularScore,
+                    healthy: i.veryHealthy,
+                    steps: st
+                    
+                }) no creamos la receta :( */
+                    
+                    /*      await Recipe.findAll()
                     .then(recipes => 
                         
                         res.send(recipes)
-                        )
-
-                })
-                .catch(e => {
-                    console.log('|||||||||| ERROR RECETAS RANDOM ||||||||||',e)
-                    res.status(404).json('idk')})
-            }
-    })
+                        ) */
+                        
+                        /*  let theInfo = {
+                            id: i.id,
+                            name: i.title,
+                            image: i.Image,
+                            diets: i.diets
+                        } */
+                        found.push(i)
+                    }
+                        return res.send(found)
+        })
         .catch(e => {
+            console.log('|||||||||| ERROR RECETAS RANDOM ||||||||||',e)
+            res.status(404).json('idk')})
+            
+    })
+        /* .catch(e => {
             console.log('|||||||| ERROR PROMESA BUSCADORA DE RECETAS |||||||',e)
-            res.sendStatus(404)})
+            res.sendStatus(404)}) */
     }
     if(nombre){
-        let resRecipe = await Recipe.findAll({
+        var foundRec= []
+        await Recipe.findAll({
             where:{
                 name: nombre
             }
         })
-        if(resRecipe.length > 0){
+        .then(r => {
+            r.forEach(e => {
+                foundRec.push(e)
+            })
+        })
+        /* if(resRecipe.length > 0){
             // console.log('||||||||||||||resRecipe db, no api externa |||||||||||||||',resRecipe)
             return res.send(resRecipe)
-        }
-        else{
-            await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
-            .then(async resR => { 
-                // acá crearia la receta si tuviera que hacerlo
-                for(let i of resR.data.results){
-                    // console.log(i.analyzedInstructions)
-                    let st = []
-                   i.analyzedInstructions.forEach(e => {
-                       // console.log(e)
-                       st.push(e)
-                    }
-                    )
-                  // console.log(st)
-                    await Recipe.create({
-                        name: i.title,
-                        summary: i.summary,
-                        rating: i.spoonacularScore,
-                        healthy: i.veryHealthy,
-                        steps: st
-                       
-                    })
-                    var recipesFound = []
-                    let recipeFound = await Recipe.findOne({
-                        where:{
-                            name: i.title
-                        }
-                    })
-                    recipesFound.push(recipeFound)
+        }  No estaría devolviendo también las encontradas en la api porque ahora no estoy guardando las que encuentro :( */
 
+        await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${nombre}&addRecipeInformation=true&apiKey=${YOUR_API_KEY}`)
+        .then(async resR => { 
+            // acá crearia la receta si tuviera que hacerlo
+            for(let i of resR.data.results){
+                // console.log(i.analyzedInstructions)
+              /*   let st = []
+                i.analyzedInstructions.forEach(e => {
+                    // console.log(e)
+                    st.push(e)
                 }
-                res.send(recipesFound)
-            })
-            .catch(e =>{
-                console.log(e)
-                res.send(e)})
-        }
+                )
+                // console.log(st)
+                await Recipe.create({
+                    name: i.title,
+                    summary: i.summary,
+                    rating: i.spoonacularScore,
+                    healthy: i.veryHealthy,
+                    steps: st
+                    
+                })
+                var recipesFound = []
+                let recipeFound = await Recipe.findOne({
+                    where:{
+                        name: i.title
+                    }
+                })
+                recipesFound.push(recipeFound)
+ouch */
+                foundRec.push(i)
+            }
+            res.send(foundRec)
+        })
+        .catch(e =>{
+            console.log(e)
+            res.send(e)})
+        
     }
 })
 
@@ -133,10 +150,11 @@ router.get( "/recipes", async function(req, res){           // (y)
 
 
 
-router.get("/recipes/:idReceta", (req, res) =>{         // (y)
+router.get("/recipes/:idReceta", async (req, res) =>{         // (y)
     const {idReceta} = req.params
     // https://api.spoonacular.com/recipes/{id}/information
     // console.log(idReceta)
+  
     axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${YOUR_API_KEY}`)
     .then(async r => {
         // console.log(r.data)
@@ -150,14 +168,14 @@ router.get("/recipes/:idReceta", (req, res) =>{         // (y)
        // console.log(st)
        let short = r.data;
 
-         await Recipe.create({
+        /*  await Recipe.create({
              name: short.title,
              summary: short.summary,
              rating: short.spoonacularScore,
              healthy: short.veryHealthy,
              steps: st
             
-         })
+         }) no creo la receta :( */
         let info = {
             name: short.title,
             summary: short.summary,
@@ -168,8 +186,11 @@ router.get("/recipes/:idReceta", (req, res) =>{         // (y)
             Image: short.image,
             steps: st
         }
+
         res.send(info)})
     .catch(e => res.send(e)) 
+    
+   
 })
 
 
