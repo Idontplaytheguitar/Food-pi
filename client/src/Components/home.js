@@ -1,37 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect} from 'react';
 import axios from 'axios'
 import CardHome from './CardHome';
+import { setCards, setLoading } from '../Redux/actions';
+import { connect } from 'react-redux'
+import { store } from '../Redux/store';
 
-const Home= () => {
+const Home = ({cards,loading}) => {
 
-  const [cards, setCards] = useState([])
+/*   const [cards, setCards] = useState([])
   const [loading, setLoading] = useState((false));
   const [currentPage, setCurrentPage] = useState(1)
   const [cardsPerPage, setCardsPerPage] = useState(10)
+ */
 
-  useEffect(()=> {
+  useEffect((cards,loading)=> {
     const fetchCards = async ()=> {
-      setLoading(true);
-      await axios.get('http://localhost:3001/recipes')
-      .then(r => {console.log(r)
-      setCards(r)
-      setLoading(false)
-    })
-      .catch(e => console.log(e))
+      store.dispatch(setLoading('Si'))
+      const r = await axios.get('http://localhost:3001/recipes')
+      //console.log(r)
+      store.dispatch(setCards(r.data));
+      store.dispatch(setLoading('No'));
     }
-
-    fetchCards();
+    
+    fetchCards()
+    console.log(loading)
+    console.log(cards)
+    console.log(Home.prototype)
+    
+    //console.log(loading)
+    //console.log(cards)
   }
-    , [])
-
-console.log(cards)
-
+  , [])
+  
   return (
     <div>
-        <CardHome loading={loading} Cards={cards}></CardHome>
+        <CardHome loading={loading} cards={cards}></CardHome>
     </div>
   )
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+
+  return {
+    cards: state.cards,
+    loading: state.loading
+  }
+}
+
+export default connect(mapStateToProps)(Home);

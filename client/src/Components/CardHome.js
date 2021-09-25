@@ -1,27 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-export function CardHome({Cards, loading}) {
-  console.log(Cards.data)
-  for(let i in Cards.data){
-    console.log(i.title)
-  }
-  if(loading){
+export function CardHome({cards}
+                        , loading
+                        ) {
+
+  
+  if(loading === 'Si'){
     return(
       <h3>Loading...</h3>
     )
   }
+  console.log(loading)
+  console.log(cards)
+
   return (
-    <ul>
-     {/*  {cards.data.forEach(card=>{
-        <li key={card.id}>
-          <img src={card.image}/>
-          <p>{card.title}</p>
-          <p>{card.dietType}</p>
-        </li>
-      })} */}
-    </ul>
+    <div>
+     hola
+    </div>
   )
+      
+  
   
 };
 

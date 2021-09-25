@@ -1,26 +1,27 @@
 const initialState = {
-    cards: [],
-    loadingd: false,
+    cards: null,
+    loading: 'No',
     currentPage:1,
     cardsPerPage: 9,
   };
 
-export function Reducer (state = initialState, action){
-    switch (action.type) {
-        case "":
-            return{
-                
-            }
-        case "":
-            return {
-             
-            }
-        case "":
-            return{
-            
-            }
-        case "":
+export default function rootReducer(state = initialState, action){
+    switch(action.type) {
 
-        default: return state
+        case 'SET_CARDS':
+            return{
+                ...state,
+                cards: action.payload
+                // loading: false
+            }
+
+        case 'SET_LOADING':
+            console.log(action.payload)
+            return {...state,
+             loading: action.payload
+            }
+
+        default: 
+            return state
     }
 }

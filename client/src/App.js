@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
-import Nav from './Components/nav'
 import Landing from './Components/landing';
 import Home from './Components/home';
 
