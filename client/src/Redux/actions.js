@@ -1,14 +1,8 @@
-export function setCards(payload){
+export function SetCards(payload){
+    
     return {
         type: 'SET_CARDS',
-        payload: {...payload}
-        
+        payload
         }
     };
 
-export function setLoading(siONo){
-    return {
-        type: 'SET_LOADING',
-        payload: siONo
-    }
-}

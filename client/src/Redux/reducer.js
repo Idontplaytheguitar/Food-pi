@@ -1,26 +1,22 @@
+import axios from 'axios'
+
 const initialState = {
-    cards: null,
-    loading: 'No',
-    currentPage:1,
-    cardsPerPage: 9,
+    Cards: []
   };
 
 export default function rootReducer(state = initialState, action){
     switch(action.type) {
 
         case 'SET_CARDS':
-            return{
-                ...state,
-                cards: action.payload
-                // loading: false
-            }
-
-        case 'SET_LOADING':
-            console.log(action.payload)
-            return {...state,
-             loading: action.payload
-            }
-
+            // console.log(action.payload)
+            axios.get('http://localhost:3001/recipes')
+            .then(r =>{
+                console.log(r)
+                return {
+                    
+                    Cards: [...r.data]
+                }
+            })
         default: 
             return state
     }

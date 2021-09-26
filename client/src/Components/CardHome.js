@@ -1,22 +1,17 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
-export function CardHome({cards}
-                        , loading
-                        ) {
+export function CardHome(image,title,dietTypes) {
 
-  
-  if(loading === 'Si'){
-    return(
-      <h3>Loading...</h3>
-    )
-  }
-  console.log(loading)
-  console.log(cards)
+  console.log(title)
+  console.log(image)
+  console.log(dietTypes)
 
   return (
     <div>
-     hola
+     <img src={image} alt={title}/>
+     <h3>{title}</h3>
+     <p>{dietTypes}</p>
     </div>
   )
       
