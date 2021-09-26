@@ -1,8 +1,14 @@
-export function SetCards(payload){
-    
+export function setCards(payload){
     return {
         type: 'SET_CARDS',
-        payload
+        payload: {...payload}
+        
         }
     };
 
+export function setLoading(payload){
+    return {
+        type: 'SET_LOADING',
+        payload
+    }
+}
