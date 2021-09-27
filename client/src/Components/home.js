@@ -1,23 +1,30 @@
 import React, { useEffect, useState} from 'react';
 import Pages from './Pages';
 // import axios from 'axios'
-// import {useSelector} from 'react-redux'
-import { SetCards } from '../Redux/actions';
+// import {useDispatch, useSelector} from 'react-redux'
+import * as actionsCreators from '../Redux/actions';
+// import axios from 'axios'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { store } from '../Redux/store';
 
 const Home = (
-  {ccards}
+  {cards, fetchCards
+    //,loading
+  }
   ) => {
+    console.log(cards, 'linea 13, gracias por avisar consola')
 
-
-  const [cards, setCards] = useState([])
-  const [loading, setLoading] = useState((false));
-
-  
-  return(
-    <>
-     {/* <Pages cards={cards} loading={loading}/> */}
+    //const cards = useSelector(state => state.Cards)
+    //const dispatch = useDispatch()
+    useEffect(()=>{
+      fetchCards()
+    },[])
+    
+      return(
+        <>
+        <Pages cards={cards} 
+        //loading={loading}
+        />
     </>
   )
 }
@@ -25,9 +32,13 @@ const Home = (
 const mapStateToProps = (state) => {
 
   return {
-    ccards: state.cards
+    cards: state.Cards,
+    loading: state.Loading
   }
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionsCreators, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 //export default Home

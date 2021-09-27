@@ -1,11 +1,11 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
-export function CardHome(image,title,dietTypes) {
+export function CardHome({image,title,dietTypes}) {
 
-  console.log(title)
-  console.log(image)
-  console.log(dietTypes)
+  //console.log(title)
+  //console.log(image)
+  //console.log(dietTypes)
 
   return (
     <div>
