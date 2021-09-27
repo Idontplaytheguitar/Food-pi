@@ -12,7 +12,6 @@ console.log(loading, 'pages linea 9 (loading)')
     return(
     <h1>por favor no renderices lo de abajo, dale</h1>)
 } */
-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
     
 return (
         <div>
