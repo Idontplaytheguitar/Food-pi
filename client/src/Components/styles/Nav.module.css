@@ -1,0 +1,8 @@
+.Nav {
+    background-color: #1988f7;
+    display: flex;
+    justify-content: space-around;
+
+    box-sizing: border-box;
+  }
+  

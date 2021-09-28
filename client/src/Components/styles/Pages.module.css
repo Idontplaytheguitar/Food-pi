@@ -1,0 +1,13 @@
+.Pages{
+    display: flex;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    align-self:auto;
+}
+

@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './styles/Nav.module.css'
+
 
 export function Nav() {
   return (
-    <div>
+    <div className={styles.Nav}>
       <div>
-        <Link to="/">Home</Link>
+        <Link to="/home">Home</Link>
       </div>
       <div>
-        <Link to="/add">Add Recipe</Link>
+        <label>Buscar</label>
+        <input type='text'/>
+      </div>
+      <div>
+        <Link to="/home/add">Add Recipe</Link>
       </div>
     </div>
   )

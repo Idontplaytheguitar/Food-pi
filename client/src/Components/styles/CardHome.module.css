@@ -1,0 +1,32 @@
+.CardHome{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 250px;
+    width: 200px;
+    border: 5px solid #ffeb77;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 10px;
+    background-color:  rgba(0, 0, 0, 0.8 );
+}
+.CardHome h3{
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+.CardHome p{
+    color: rgb(53, 224, 11);
+    font-family: sans-serif;
+    font-weight:lighter;
+}
+
+.imagen{
+    width: 180px;
+    height: 160;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-left: 5px;
+}

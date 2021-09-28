@@ -6,13 +6,15 @@ import * as actionsCreators from '../Redux/actions';
 // import axios from 'axios'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import styles from './styles/home.module.css'
 
 const Home = (
-  {cards, fetchCards
-    //,loading
+  {cards, fetchCards, creadas
+    ,loading
   }
   ) => {
-    console.log(cards, 'linea 13, gracias por avisar consola')
+    //console.log(cards, 'linea 13, gracias por avisar consola')
+    console.log(creadas, 'linea17 home')
 
     //const cards = useSelector(state => state.Cards)
     //const dispatch = useDispatch()
@@ -21,11 +23,9 @@ const Home = (
     },[])
     
       return(
-        <>
-        <Pages cards={cards} 
-        //loading={loading}
-        />
-    </>
+        <div className={styles.Home}>
+        <Pages cards={cards} creadas={creadas} />
+    </div>
   )
 }
 
@@ -33,7 +33,8 @@ const mapStateToProps = (state) => {
 
   return {
     cards: state.Cards,
-    loading: state.Loading
+    loading: state.Loading,
+    creadas: state.creados
   }
 }
 

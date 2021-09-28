@@ -28,3 +28,24 @@ export function fetchCards() {
         .catch(e => console.log(e));
     }
   }
+
+  export function searchById(payload){
+    return{
+      type:'SEARCH_BY_ID',
+      payload
+    }
+  }
+
+  export function searchByTitle(payload){
+    return{
+      type:'SEARCH_BY_TITLE',
+      payload
+    }
+  }
+
+  export function guardarCreado(payload){
+    return {
+        type: "GUARDAR_CREADO",
+        payload
+    }
+}

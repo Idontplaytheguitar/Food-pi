@@ -2,6 +2,7 @@
 
 const initialState = {
     Cards: [],
+    creados:[],
     Loading: false,
     CardsPerPage: 9,
     CurrentPage: 1
@@ -20,6 +21,11 @@ export default function Reducer(state = initialState, action){
             return{
                 ...state,
                 Loading: action.payload
+            }
+        case 'GUARDAR_CREADO':
+            return{
+                ...state,
+                creados: [...state.creados, action.payload]
             }
         default: 
             return state
