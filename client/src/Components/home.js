@@ -21,7 +21,7 @@ const Home = (
     //const cards = useSelector(state => state.Cards)
     //const dispatch = useDispatch()
     useEffect(()=>{
-    },[cards])
+    },[])
 
     function selectDiet(e){
       let value = e.target.value;

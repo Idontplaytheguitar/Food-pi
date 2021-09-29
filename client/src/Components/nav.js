@@ -4,6 +4,10 @@ import { searchByTitle } from '../Redux/actions';
 import {connect} from 'react-redux'
 import styles from './styles/Nav.module.css'
 
+function handleSubmit(e){
+  e.preventDefault()
+  searchByTitle(e)
+}
 
 export function Nav(searchByTitle) {
   return (
@@ -12,7 +16,7 @@ export function Nav(searchByTitle) {
         <Link to="/home">Home</Link>
       </div>
       <div>
-        <form onSubmit={(e)=> searchByTitle(e)}>
+        <form onSubmit={(e)=> handleSubmit(e)}>
         <input type='text'/>
         <button>Buscar</button>
         </form>

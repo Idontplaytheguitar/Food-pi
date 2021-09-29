@@ -47,7 +47,7 @@ export default function Reducer(state = initialState, action){
                 ...state,
                 Cards: filtrado
             }
-
+            
         case 'LACTO_VEGETARIAN':
             //console.log(action.payload)
             let filtrado2 = state.Cards.filter(e => {

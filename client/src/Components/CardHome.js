@@ -6,7 +6,7 @@ export function CardHome({image,title,diets,id}) {
 
   //console.log(title)
   //console.log(image)
-  console.log(diets)
+  //console.log(diets)
 
   return (
     <Link to={`/home/recipe/${id}`}>
