@@ -1,6 +1,5 @@
-import React, {useState, render} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios'
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { guardarCreado } from '../Redux/actions';
 
@@ -26,6 +25,7 @@ export function CreateRecipe({}) {
     var handlePasosChange = function(e){
        setPasos(e.target.value)
     }
+    let done = false
     var handleSubmit = async function(e,Titulo, Resumen,Puntaje,Saludable,Pasos){
         e.preventDefault()
         Pasos = pasos.split('|')
@@ -38,12 +38,23 @@ export function CreateRecipe({}) {
         }
         await axios.post('http://localhost:3001/recipe',datos)
         guardarCreado(datos)
+        done = true
         // acá renderizo ?
     }
-    
+    console.log(done)
+    if(done){
+        return(
+            <div>
+                <h1>Listo!</h1>
+            </div>
+        )
+    }
 
-  return (
-    <div>
+    
+    else{
+        
+        return (
+            <div>
         <form onSubmit={e => handleSubmit(e,Titulo,Resumen,Puntaje,Saludable,pasos)}>
             <div>
                 <label>Título</label>
@@ -74,6 +85,7 @@ export function CreateRecipe({}) {
         </form>
     </div>
   )
+}
   
 };
 
