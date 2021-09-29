@@ -5,7 +5,7 @@ import styles from './styles/Pages.module.css'
 
 const Pages = ({cards, creadas}) => {
 
-console.log(cards, 'pages linea 7 (cards) ')
+//console.log(cards, 'pages linea 7 (cards) ')
 
 //console.log(loading, 'pages linea 9 (loading)')
 
@@ -24,7 +24,7 @@ function aumenta(){
 console.log(creadas, 'pages linea 24')
 
 function mostrarCreadas(){
-    if(showCreadas){
+    if(showCreadas === true){
         showCreadas= false}
     else{
         showCreadas=true
@@ -57,6 +57,7 @@ else{
         <>
         <div className={styles.Pages}>
             {
+                cards.length === 0 ? <h1>No hay recetas con estas dietas</h1>:
                 cards.slice(limit,limit +9).map(element => {
                     return(
                     <CardHome key= {element.id} id={element.id}image={element.image} title={element.title} diets={element.diets}/>)
@@ -65,7 +66,7 @@ else{
         </div>
 
         <div className={styles.buttons}>
-            <button onClick={mostrarCreadas()}>Mostrar recetas creadas</button>
+            <button onClick={mostrarCreadas}>Mostrar recetas creadas</button>
         </div>
 
             <div className={styles.buttons}>

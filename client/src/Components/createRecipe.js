@@ -3,7 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { guardarCreado } from '../Redux/actions';
 
-export function CreateRecipe({}) {
+export function CreateRecipe({guardarCreado}) {
     var [Titulo, setTitulo] = useState('')
     var [Resumen, setResumen] = useState('')
     var [Puntaje, setPuntaje] = useState('')
@@ -30,14 +30,16 @@ export function CreateRecipe({}) {
         e.preventDefault()
         Pasos = pasos.split('|')
         let datos ={
-            name:Titulo,
+            title:Titulo,
             summary:Resumen,
             rating:Puntaje,
             healthy:Saludable,
             steps:Pasos
         }
         await axios.post('http://localhost:3001/recipe',datos)
-        guardarCreado(datos)
+        let aGuardar = await axios.get(`http://localhost:3001/recipes?nombre=${Titulo}`)
+         console.log(aGuardar.data[0])
+        guardarCreado(aGuardar.data[0])
         done = true
         // acá renderizo ?
     }

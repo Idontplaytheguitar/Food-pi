@@ -33,7 +33,7 @@ export function fetchCards() {
 
   export function searchByTitle(payload){
     return function(dispatch){
-      axios.get(`http://localhost:3001/recipes?nombre?${payload}`)
+      axios.get(`http://localhost:3001/recipes?nombre=${payload}`)
       .then(r => {
         console.log(r, '|||||||actions|||||||') 
         return r.data})
@@ -48,87 +48,116 @@ export function fetchCards() {
   }
 
   export function guardarCreado(payload){
+    console.log( 'entró al action', payload)
     return {
         type: "GUARDAR_CREADO",
         payload
     }
 }
           //---------- FILTRADOS ------------\\
-export function Vegetarian(){
+export function Vegetarian(payload){
   return{
-    type: 'VEGETARIAN'
+    type: 'VEGETARIAN',
+    payload
   }
 }
 
-export function LactoVegetarian(){
+export function LactoVegetarian(payload){
   return{
-    type: 'LACTO_VEGETARIAN'
+    type: 'LACTO_VEGETARIAN',
+    payload
   }
 }
 
-export function Ketogenic(){
+export function Ketogenic(payload){
   return{
-    type: 'KETOGENIC'
+    type: 'KETOGENIC',
+    payload
   }
 }
 
-export function OvoVegetarian(){
+export function OvoVegetarian(payload){
   return{
-    type: 'OVO_VEGETARIAN'
+    type: 'OVO_VEGETARIAN',
+    payload
   }
 }
 
-export function Vegan(){
+export function Vegan(payload){
   return{
-    type: 'VEGAN'
+    type: 'VEGAN',
+    payload
   }
 }
 
-export function Pescetarian(){
+export function Pescetarian(payload){
   return{
-    type: 'PESCETARIAN'
+    type: 'PESCETARIAN',
+    payload
   }
 }
 
-export function Paleo(){
+export function Paleo(payload){
   return{
-    type: 'PALEO'
+    type: 'PALEO',
+    payload
   }
 }
 
-export function Primal(){
+export function Primal(payload){
   return{
-    type: 'PRIMAL'
+    type: 'PRIMAL',
+    payload
   }
 }
 
-export function Whole30(){
+export function Whole30(payload){
   return{
-    type: 'WHOLE_30'
+    type: 'WHOLE_30',
+    payload
   }
 }
       //---------- ORDENAMIENTOS ------------\\
 
-export function AZ(){
+export function AZ(payload){
   return{
-    type: 'AZ'
+    type: 'AZ',
+    payload
   }
 }
 
-export function ZA(){
+export function ZA(payload){
   return{
-    type: 'ZA'
+    type: 'ZA',
+    payload
   }
 }
 
-export function PuntajeAsc(){
+export function PuntajeAsc(payload){
   return{
-    type: 'PUNTAJE_ASC'
+    type: 'PUNTAJE_ASC',
+    payload
   }
 }
 
-export function PuntajeDesc(){
+export function PuntajeDesc(payload){
   return{
-    type: 'PUNTAJE_DESC'
+    type: 'PUNTAJE_DESC',
+    payload
+  }
+}
+
+
+            //details//
+
+export function det(id){
+  return function(dispatch){
+    axios.get(`http://localhost:3001/recipes/${id}`)
+    .then(r => r.data)
+    .then(d => dispatch({
+      type: 'DETAILS',
+      payload: d
+    }))
+    .catch(e => console.log(e))
   }
 }

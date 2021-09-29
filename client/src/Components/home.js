@@ -11,12 +11,12 @@ import styles from './styles/home.module.css'
 const Home = (
   {cards, 
     fetchCards, creadas, Vegan, Vegetarian, OvoVegetarian, LactoVegetarian, Whole30, Paleo, Primal, Pescetarian, Ketogenic,
-    AZ, ZA, PuntajeAsc, PuntajeDesc
+    //AZ, ZA, PuntajeAsc, PuntajeDesc
     //,loading
   }
   ) => {
     //console.log(cards, 'linea 13, gracias por avisar consola')
-    //console.log(creadas, 'linea17 home')
+    console.log(creadas, 'linea17 home')
 
     //const cards = useSelector(state => state.Cards)
     //const dispatch = useDispatch()
@@ -26,47 +26,55 @@ const Home = (
     function selectDiet(e){
       let value = e.target.value;
       if(value === "Vegetarian"){
-        Vegetarian();
+        Vegetarian(cards);
       }
       if(value === "Lacto-Vegetarian"){
-        LactoVegetarian();
+        LactoVegetarian(cards);
       }
       if(value === "Ketogenic"){
-        Ketogenic();
+        Ketogenic(cards);
       }
       if(value === "Ovo-Vegetarian"){
-        OvoVegetarian();
+        OvoVegetarian(cards);
       }
       if(value === "Vegan"){
-        Vegan();
+        Vegan(cards);
       }
       if(value === "Pescetarian"){
-        Pescetarian();
+        Pescetarian(cards);
       }
       if(value === "Paleo"){
-        Paleo();
+        Paleo(cards);
       }
       if(value === "Primal"){
-        Primal();
+        Primal(cards);
       }
       if(value === "Whole30"){
-        Whole30();
+        Whole30(cards);
       }
     }
-
+//
     function Orden(e){
       let value = e.target.value
       if(value === "Alfabético A-Z"){
-        AZ()
+        console.log('az')
+       let newa = cards.sort((a,b) => (a.title > b.title)? 1: -1)
+       cards = newa
       }
-      if(value === "Alfabético A-Z"){
-        ZA()
+      if(value === "Alfabético Z-A"){
+        console.log('za')
+        let newa = cards.sort((a,b) => (a.title > b.title)? -1: 1)
+        cards = newa
       }
       if(value === "Puntaje asc"){
-        PuntajeAsc()
+        console.log('Puntaje asc')
+        let newa = cards.sort((a,b) => (a.rating > b.rating)? 1: -1)
+        cards = newa
       } 
       if(value === "Puntaje desc"){
-        PuntajeDesc()
+        console.log('Puntaje desc')
+        let newa = cards.sort((a,b) => (a.rating > b.rating)? -1: 1)
+        cards = newa
       }
     }
 
@@ -75,6 +83,7 @@ const Home = (
         <span>
         <label >Filtrar </label> <br />
         <select onChange={selectDiet} className="selects">
+        <option value=""></option>
             <option value="Vegetarian">Vegetarian</option>
             <option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
             <option value="Ketogenic">Ketogenic</option>
@@ -89,6 +98,7 @@ const Home = (
     <span>
         <label>Ordenamiento </label> <br />
         <select onChange={Orden} className="selects">
+            <option value=""></option>
             <option value="Alfabético A-Z">Alfabético A-Z</option>
             <option value="Alfabético Z-A">Alfabético Z-A</option>
             <option value="Puntaje asc">Puntaje asc</option>

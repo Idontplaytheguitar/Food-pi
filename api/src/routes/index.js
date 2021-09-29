@@ -94,7 +94,7 @@ router.get( "/recipes", async function(req, res){           // (y)
         var foundRec= []
         await Recipe.findAll({
             where:{
-                name: nombre
+                title: nombre
             }
         })
         .then(r => {
@@ -177,7 +177,7 @@ router.get("/recipes/:idReceta", async (req, res) =>{         // (y)
             
          }) no creo la receta :( */
         let info = {
-            name: short.title,
+            title: short.title,
             summary: short.summary,
             rating: short.spoonacularScore,
             dishTypes: short.dishTypes,
@@ -201,7 +201,7 @@ router.get('/types', async (req,res) => {           // (y)
     let q = await Diet_type.findAll()
     let diets = []
     for(let i of q){
-        diets.push(i.name)
+        diets.push(i.title)
     }
     //console.log(diets)
     res.send(diets)
@@ -220,10 +220,10 @@ router.get('/types', async (req,res) => {           // (y)
 }) */
 
 router.post('/recipe', async (req,res)=>{       // (y)
-    const {name,summary,rating,healthy,steps} = req.body;
-    console.log(name,summary,rating,healthy,steps)
+    const {title,summary,rating,healthy,steps} = req.body;
+    console.log(title,summary,rating,healthy,steps)
     await Recipe.create({
-        name,
+        title,
         summary,
         rating,
         healthy,

@@ -3,6 +3,7 @@
 const initialState = {
     Cards: [],
     creados:[],
+    details:{}
     //Loading: false,
   };
  
@@ -21,9 +22,11 @@ export default function Reducer(state = initialState, action){
                 Loading: action.payload
             }
         case 'GUARDAR_CREADO':
+            console.log(state.creados,'||||state|||')
+            console.log(action.payload, '|||||actionpayload||||')
             return{
                 ...state,
-                creados: [...state.creados, action.payload]
+                creados: [action.payload]
             }
 
 
@@ -38,10 +41,8 @@ export default function Reducer(state = initialState, action){
 
         case 'VEGETARIAN':
             //console.log(action.payload)
-            let filtrado = state.Cards.filter(e => {
-                if(e.diets?.includes('vegetarian')){
-                    return e
-                }
+            let filtrado = action.payload.filter(e => {
+                if(e.vegetarian === true) return e
             })
             return {
                 ...state,
@@ -50,8 +51,8 @@ export default function Reducer(state = initialState, action){
             
         case 'LACTO_VEGETARIAN':
             //console.log(action.payload)
-            let filtrado2 = state.Cards.filter(e => {
-                if(e.diets?.includes('lacto')){
+            let filtrado2 = action.payload.filter(e => {
+                if(e.diets?.includes('lacto ovo vegetarian')){
                     return e
                 }
             })
@@ -62,8 +63,8 @@ export default function Reducer(state = initialState, action){
 
         case 'KETOGENIC':
             //console.log(action.payload)
-            let filtrado3 = state.Cards.filter(e => {
-                if(e.diets?.includes('ketogenic')){
+            let filtrado3 = action.payload.filter(e => {
+                if(e.diets?.includes('keto')){
                     return e
                 }
             })
@@ -74,8 +75,8 @@ export default function Reducer(state = initialState, action){
 
         case 'OVO_VEGETARIAN':
             //console.log(action.payload)
-            let filtrado4 = state.Cards.filter(e => {
-                if(e.diets?.includes('ovo')){
+            let filtrado4 = action.payload.filter(e => {
+                if(e.diets?.includes('lacto ovo vegetarian')){
                     return e
                 }
             })
@@ -86,7 +87,7 @@ export default function Reducer(state = initialState, action){
 
         case 'VEGAN':
             //console.log(action.payload)
-            let filtrado5 = state.Cards.filter(e => {
+            let filtrado5 = action.payload.filter(e => {
                 if(e.diets?.includes('vegan')){
                     return e
                 }
@@ -98,8 +99,8 @@ export default function Reducer(state = initialState, action){
         
         case 'PESCETARIAN':
         //console.log(action.payload)
-            let filtrado6 = state.Cards.filter(e => {
-                if(e.diets?.includes('pescetarian')){
+            let filtrado6 = action.payload.filter(e => {
+                if(e.diets?.includes('pescatarian')){
                     return e
                 }
             })
@@ -110,8 +111,8 @@ export default function Reducer(state = initialState, action){
         
         case 'PALEO':
             //console.log(action.payload)
-                let filtrado7 = state.Cards.filter(e => {
-                    if(e.diets?.includes('paleo')){
+                let filtrado7 = action.payload.filter(e => {
+                    if(e.diets?.includes('paleolithic')){
                         return e
                     }
                 })
@@ -122,8 +123,8 @@ export default function Reducer(state = initialState, action){
 
         case 'PRIMAL':
     //console.log(action.payload)
-            let filtrado8 = state.Cards.filter(e => {
-                if(e.diets?.includes('paleo')){
+            let filtrado8 = action.payload.filter(e => {
+                if(e.diets?.includes('primal')){
                     return e
                 }
             })
@@ -134,7 +135,7 @@ export default function Reducer(state = initialState, action){
 
         case 'WHOLE_30':
             //console.log(action.payload)
-                    let filtrado9 = state.Cards.filter(e => {
+                    let filtrado9 = action.payload.filter(e => {
                         if(e.diets?.includes('whole30')){
                             return e
                         }
@@ -146,33 +147,41 @@ export default function Reducer(state = initialState, action){
                 // --------------- ORDENAMIENTOS ---------------- \\
 
         case 'AZ':
-            let ordenados = state.Cards.sort((a,b) => (a.title > b.title)? 1: -1)
+            console.log(action.payload)
+            let ordenados = action.payload.sort((a,b) => (a.title > b.title)? 1: -1)
+            console.log(ordenados, '|ordenados|')
             return {
                 ...state,
                 Cards: ordenados
             }
         
         case 'ZA':
-            let ordenados2 = state.Cards.sort((a,b) => (a.title > b.title)? -1: 1)
+            let ordenados2 = action.payload.sort((a,b) => (a.title > b.title)? -1: 1)
             return {
                 ...state,
                 Cards: ordenados2
             }
 
         case 'PUNTAJE_ASC':
-            let ordenados3 = state.Cards.sort((a,b) => (a.rating > b.rating)? 1: -1)
+            let ordenados3 = action.payload.sort((a,b) => (a.rating > b.rating)? 1: -1)
             return {
                 ...state,
                 Cards: ordenados3
             }
         
         case 'PUNTAJE_DESC':
-            let ordenados4 = state.Cards.sort((a,b) => (a.rating > b.rating)? -1: 1)
+            let ordenados4 = action.payload.sort((a,b) => (a.rating > b.rating)? -1: 1)
             return {
                 ...state,
                 Cards: ordenados4
             }
-
+                    // details //        
+                           
+        case 'DETAILS':
+            return{
+                ...state,
+                details: action.payload
+            }
         default: 
             return state
     }
