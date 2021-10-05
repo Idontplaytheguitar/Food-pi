@@ -119,31 +119,27 @@ export function Whole30(payload){
 }
       //---------- ORDENAMIENTOS ------------\\
 
-export function AZ(payload){
+export function AZ(){
   return{
-    type: 'AZ',
-    payload
+    type: 'AZ'
   }
 }
 
-export function ZA(payload){
+export function ZA(){
   return{
-    type: 'ZA',
-    payload
+    type: 'ZA'
   }
 }
 
-export function PuntajeAsc(payload){
+export function PuntajeAsc(){
   return{
-    type: 'PUNTAJE_ASC',
-    payload
+    type: 'PUNTAJE_ASC'
   }
 }
 
 export function PuntajeDesc(payload){
   return{
-    type: 'PUNTAJE_DESC',
-    payload
+    type: 'PUNTAJE_DESC'
   }
 }
 

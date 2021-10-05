@@ -147,34 +147,36 @@ export default function Reducer(state = initialState, action){
                 // --------------- ORDENAMIENTOS ---------------- \\
 
         case 'AZ':
-            console.log(action.payload)
-            let ordenados = action.payload.sort((a,b) => (a.title > b.title)? 1: -1)
+            //console.log(action.payload)
+            let ordenados = state.Cards.sort((a,b) => (a.title > b.title)? 1: -1)
             console.log(ordenados, '|ordenados|')
             return {
                 ...state,
-                Cards: ordenados
+                Cards: [...ordenados]
             }
         
         case 'ZA':
-            let ordenados2 = action.payload.sort((a,b) => (a.title > b.title)? -1: 1)
+            let ordenados2 = state.Cards.sort((a,b) => (a.title > b.title)? -1: 1)
             return {
                 ...state,
-                Cards: ordenados2
+                Cards: [...ordenados2]
             }
 
         case 'PUNTAJE_ASC':
-            let ordenados3 = action.payload.sort((a,b) => (a.rating > b.rating)? 1: -1)
+            let ordenados3 = state.Cards.sort((a,b) => (a.rating > b.rating)? 1: -1)
             return {
                 ...state,
-                Cards: ordenados3
+                Cards: [...ordenados3]
             }
         
         case 'PUNTAJE_DESC':
-            let ordenados4 = action.payload.sort((a,b) => (a.rating > b.rating)? -1: 1)
+            let ordenados4 = state.Cards.sort((a,b) => (a.rating > b.rating)? -1: 1)
             return {
                 ...state,
-                Cards: ordenados4
+                Cards: [...ordenados4]
             }
+
+            
                     // details //        
                            
         case 'DETAILS':

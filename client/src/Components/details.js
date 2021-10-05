@@ -14,7 +14,7 @@ export function Details({match,details,det}) {
   },[])
 
   if(details){
-    console.log(details.steps[0].steps)
+    console.log(details)
   return (
     <div>
         <img src={details.Image} alt='Hola'/>
@@ -31,7 +31,7 @@ export function Details({match,details,det}) {
         <p>{details.rating}</p>
         <h3>Pasos:</h3>
         {
-          details.steps[0].steps.map(e =>{
+          details.steps[0]?.steps.map(e =>{
             return(
 
               <div>

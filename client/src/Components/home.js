@@ -11,18 +11,20 @@ import styles from './styles/home.module.css'
 const Home = (
   {cards, 
     fetchCards, creadas, Vegan, Vegetarian, OvoVegetarian, LactoVegetarian, Whole30, Paleo, Primal, Pescetarian, Ketogenic,
-    //AZ, ZA, PuntajeAsc, PuntajeDesc
+    AZ, ZA, PuntajeAsc, PuntajeDesc
     //,loading
   }
   ) => {
     //console.log(cards, 'linea 13, gracias por avisar consola')
     console.log(creadas, 'linea17 home')
-
+    //
     //const cards = useSelector(state => state.Cards)
     //const dispatch = useDispatch()
+
     useEffect(()=>{
     },[])
 
+// askdja
     function selectDiet(e){
       let value = e.target.value;
       if(value === "Vegetarian"){
@@ -58,23 +60,33 @@ const Home = (
       let value = e.target.value
       if(value === "Alfabético A-Z"){
         console.log('az')
-       let newa = cards.sort((a,b) => (a.title > b.title)? 1: -1)
-       cards = newa
+        /*    
+        let newa = cards.sort((a,b) => (a.title > b.title)? 1: -1)
+        console.log(cards, '||||antes|||')
+        cards = newa
+        console.log(cards, '||| despues|||') */
+        AZ()
       }
       if(value === "Alfabético Z-A"){
         console.log('za')
+       /* 
         let newa = cards.sort((a,b) => (a.title > b.title)? -1: 1)
-        cards = newa
+        cards = [...newa] */
+        ZA()
       }
       if(value === "Puntaje asc"){
         console.log('Puntaje asc')
+      /*
         let newa = cards.sort((a,b) => (a.rating > b.rating)? 1: -1)
-        cards = newa
+        cards = newa */
+        PuntajeAsc()
       } 
       if(value === "Puntaje desc"){
         console.log('Puntaje desc')
+      /*
         let newa = cards.sort((a,b) => (a.rating > b.rating)? -1: 1)
-        cards = newa
+        cards = newa */
+        PuntajeDesc()
       }
     }
 
