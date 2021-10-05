@@ -5,7 +5,7 @@ import styles from './styles/landing.module.css'
 export function Landing() {
   return (
     <div className={styles.Landing}>  
-            <Link to="/home"><p>Home</p></Link>
+            <Link to="/home" className={styles.Hovp}><p>Home</p></Link>
     </div>
   )
 };

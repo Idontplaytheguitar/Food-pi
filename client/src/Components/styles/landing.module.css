@@ -1,17 +1,44 @@
 .Landing{
     display: flex;
+    align-items: flex-end;
     height: 100%;
-    justify-content:center;
-    align-items:center;
-    background: url(./imgs/Bean-Salad-Recipe-2-1200.jpg) 80% no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: rgb(122,0,0);
+    background: -moz-linear-gradient(45deg, rgb(122,0,0) 0%, rgb(0,0,0) 29%, rgb(61,0,0) 100%);
+    background: -webkit-linear-gradient(45deg, rgb(122,0,0) 0%, rgb(0,0,0) 29%, rgb(61,0,0) 100%);
+    background: linear-gradient(45deg, rgb(122,0,0) 0%, rgb(0,0,0) 29%, rgb(61,0,0) 100%);
+}
 
-}
-.Landing p{
-    outline: 16px dotted #000;
-    outline-offset: 25px;
+.Hovp{
     font-family: monospace;
-    font-size: 40px;
+    font-size: 6vh;
 }
+.Hovp :hover{
+    animation: myAnim 2s ease 0s infinite normal both;
+  }
+  @keyframes myAnim {
+    0% {
+      animation-timing-function: ease-out;
+      transform: scale(1);
+      transform-origin: center center;
+    }
+  
+    10% {
+      animation-timing-function: ease-in;
+      transform: scale(0.91);
+    }
+  
+    17% {
+      animation-timing-function: ease-out;
+      transform: scale(0.98);
+    }
+  
+    33% {
+      animation-timing-function: ease-in;
+      transform: scale(0.87);
+    }
+  
+    45% {
+      animation-timing-function: ease-out;
+      transform: scale(1);
+    }
+  }

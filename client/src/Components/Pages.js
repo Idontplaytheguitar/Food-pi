@@ -3,7 +3,7 @@ import CardHome from './CardHome';
 import CreatedCard from './CreatedCard';
 import styles from './styles/Pages.module.css'
 
-const Pages = ({cards, creadas}) => {
+const Pages = ({cards, creadas, buttonFix}) => {
 
 //console.log(cards, 'pages linea 7 (cards) ')
 
@@ -54,7 +54,15 @@ else{
 
     return (
         
-        <>
+        <div className={styles.fixingStyles}>
+
+
+            <div className={styles.buttons}>
+                {buttonFix()}
+                <button onClick={mostrarCreadas}>Mostrar recetas creadas</button>
+                <button onClick={disminuye}>Anterior</button>
+                <button onClick={aumenta}>Siguiente</button>
+            </div>
         <div className={styles.Pages}>
             {
                 cards.length === 0 ? <h1>No hay recetas con estas dietas</h1>:
@@ -64,16 +72,7 @@ else{
                 })
             }
         </div>
-
-        <div className={styles.buttons}>
-            <button onClick={mostrarCreadas}>Mostrar recetas creadas</button>
-        </div>
-
-            <div className={styles.buttons}>
-                <button onClick={disminuye}>Anterior</button>
-                <button onClick={aumenta}>Siguiente</button>
-            </div>
-    </>
+    </div>
     )
 
     }

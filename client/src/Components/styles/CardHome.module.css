@@ -1,11 +1,11 @@
 .CardHome{
-    margin: 20px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 250px;
-    width: 200px;
-    border: 5px solid #ffeb77;
+    height: 30vh;
+    width: 22vh;
+    border: 5px solid #580a4e;
     border-radius: 5px;
     padding: 8px;
     margin-top: 10px;
@@ -24,9 +24,10 @@
 }
 
 .imagen{
-    width: 180px;
-    height: 160;
-    object-fit: cover;
+    overflow:auto;
+    width: 19vh;
+    height: 15vh;
+    object-fit:cover ;
     border-radius: 5px;
-    margin-left: 5px;
+    margin: 10px;
 }

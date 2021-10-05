@@ -25,6 +25,9 @@ const Home = (
     },[])
 
 // askdja
+    function buttonFix(){
+      return( <button onClick={fetchCards}>Reiniciar/Mostrar recetas</button>)
+    }
     function selectDiet(e){
       let value = e.target.value;
       if(value === "Vegetarian"){
@@ -117,10 +120,10 @@ const Home = (
             <option value="Puntaje desc">Puntaje desc</option>
         </select> 
     </span>
-    <span>
+   {/*  <span>
       <button onClick={fetchCards}>Reiniciar/Mostrar recetas</button>
-    </span>
-        <Pages cards={cards} creadas={creadas} />
+    </span> */}
+        <Pages cards={cards} creadas={creadas} buttonFix={buttonFix} />
     </div>
   )
 }
