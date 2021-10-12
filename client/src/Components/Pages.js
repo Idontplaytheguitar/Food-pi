@@ -9,6 +9,7 @@ const Pages = ({cards, creadas, buttonFix}) => {
 
 //console.log(loading, 'pages linea 9 (loading)')
 // console.log(test)
+// test
 let showCreadas = false
 
 const [limit, setLimit] = useState(0);
